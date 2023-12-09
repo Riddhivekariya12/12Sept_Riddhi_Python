@@ -1,9 +1,10 @@
-def number_check(n):
-    sum = 0
-    for i in range(1, n):
-        if n % i == 0:
-            sum += i
-    return sum == n
+from collections import defaultdict
 
+data = [{'item': 'item1', 'amount': 400}, {'item': 'item2', 'amount': 300}, {'item': 'item1', 'amount': 750}]
 
-print(number_check(10))
+result = defaultdict(int)
+
+for entry in data:
+    result[entry['item']] += entry['amount']
+
+print(dict(result))
