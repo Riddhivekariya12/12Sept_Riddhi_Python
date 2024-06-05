@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q3ee_zgbp7edjh#az)k=wldy@y#z6-jch5xulhpe+_0-npma6a'
+SECRET_KEY = 'django-insecure-ppk_0vgz$v%kubt=o#0!z8wwa8=ydd#pw4%e354h&famim2i+r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
 ]
 
 MIDDLEWARE = [
@@ -77,7 +76,7 @@ WSGI_APPLICATION = 'product_management.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "Product_Management",
+        "NAME": "product_management",
         "USER": "root",
         "PASSWORD": "",
         "HOST": "127.0.0.1",

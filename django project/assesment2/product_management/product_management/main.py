@@ -10,7 +10,7 @@ def register_user(user_type):
     city = city_entry.get()
     state = state_entry.get()
 
-    # Insert data into MySQL database
+    
     try:
         connection = mysql.connector.connect(host='localhost',
                                              database='Product_Management',
