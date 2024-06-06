@@ -32,15 +32,17 @@
             <tr>
                
                 {% for i in data %}
-                <td>i.state</td>
-                <td>i.statecode</td>
-                <td>i.active</td>
-                <td>i.confirmed</td>
-                <td>i.deaths</td>
+                <td>{{i.state}}</td>
+                <td>{{i.statecode}}</td>
+                <td>{{i.active}}</td>
+                <td>{{i.confirmed}}</td>
+                <td>{{i.deaths}}</td>
+
+                {% endfor %}
 
             </tr>
               
-                  {% endfor %}
+                 
 
 
         </table>

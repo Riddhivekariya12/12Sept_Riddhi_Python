@@ -26,13 +26,13 @@
                 <th>productimages</th>
             </tr>
 
-
+            {% for i in data%}
             <tr>
-                {% for i in data%}
-                <td>{i['id']}</td>
-                <td>{i['productname']}</td>
-                <td>{i['price']}</td>
-                <td>{i['productimages']}<img src="https://fakestoreapi.com/products" ></td>
+                
+                <td>{{i.id}}</td>
+                <td>{{i.title}}</td>
+                <td>{{i.price}}</td>
+                <td><img src="{{i.image}}"  style="max-width: 100px;"></td>
             </tr>
                  {% endfor%}
 

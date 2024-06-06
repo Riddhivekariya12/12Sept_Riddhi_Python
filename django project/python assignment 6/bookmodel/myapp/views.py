@@ -3,36 +3,37 @@ from sqlite3 import SQLITE_AUTH_USER
 from django.shortcuts import render
 from .serializers import *
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.decorators import api_view
 
 # Create your views here.
 
 @api_view(['GET'])
 def getall(request):
-    bdata=booklist.objects.all()
-    serial=bookserializer(bdata,many=True)
+    bdata=book.objects.all()
+    serial=BookSerializer(bdata,many=True)
     return Response(data=serial.data)
 
 
 @api_view(['GET'])
 def getbookid(request,id):
     try:
-        bookid=booklist.objects.get(id=id)
-    except booklist.DoesNotExist:
-        return Response()  
+        bookid=book.objects.get(id=id)
+    except book.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)  
 
-    serial=bookserializer(bookid)
-    return Response(data=serial.data)  
+    serial=BookSerializer(bookid)
+    return Response(data=serial.data,status=status.HTTP_200_OK)  
 
 @api_view(['DELETE'])
 def deletebookid(request,id):
     try:
-        bookid=booklist.objects.get(id=id)
-    except booklist.DoesNotExist:
-        return Response()  
+        bookid=book.objects.get(id=id)
+    except book.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)  
 
-    booklist.delete(bookid)
-    return Response()
+    book.delete(bookid)
+    return Response(status=status.HTTP_202_ACCEPTED)
 
 
 @api_view(['DELETE','GET'])
@@ -40,49 +41,51 @@ def deletebookid(request,id):
     bookid=''
     if request.method=='GET':
       try:
-        bookid=booklist.objects.get(id=id)
-      except booklist.DoesNotExist:
-        return Response()  
-      serial=bookserializer(bookid)
-      return Response(data=serial.data)
+        bookid=book.objects.get(id=id)
+      except book.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)  
+      serial=BookSerializer(bookid)
+      return Response(data=serial.data,status=status.HTTP_200_OK)
     if request.method=='DELETE':
-       booklist.delete(bookid)
-       return Response()
+       book.delete(bookid)
+       return Response(status=status.HTTP_202_ACCEPTED)
     
 
 @api_view(['post'])    
 def savebdata(request):
     if request.method=='POST':
-       serial=bookserializer(data=request.data)
+       serial=BookSerializer(data=request.data)
        if serial.is_valid():
           serial.save()
-          return Response()
+          return Response(status=status.HTTP_201_CREATED)
        else:
-          return Response()
+          return Response(status=status.HTTP_400_BAD_REQUEST)
     else:
-       return Response ()  
+       return Response (status=status.HTTP_400_BAD_REQUEST)  
 
 
 
 @api_view(['PUT'])
 def updatebdata(request,id):
    try:
-      bookid=booklist.objects.get(id=id)
-   except   booklist.DoesNotExist:
-    if request.method=='GET':
-      serial=bookserializer(bookid)
-      return Response(data=serial.data)   
-    if request.method=='PUT':
-      serial=bookserializer(request.data)
+      bookid=book.objects.get(id=id)
+   except   book.DoesNotExist:
+       return Response(status=status.HTTP_404_NOT_FOUND)
+   if request.method=='GET':
+      serial=BookSerializer(bookid)
+      return Response(data=serial.data,status=status.HTTP_200_OK)   
+   if request.method=='PUT':
+      serial=BookSerializer(request.data)
       if serial.is_valid():
          serial.save()
-         return Response()
+         return Response(status=status.HTTP_201_CREATED)
       else:
-         return Response()
-    else:
-      return Response()
+          return Response(status=status.HTTP_400_BAD_REQUEST)
    else:
-    return Response()
+       return Response (status=status.HTTP_400_BAD_REQUEST) 
+       
+
+     
      
 
     
