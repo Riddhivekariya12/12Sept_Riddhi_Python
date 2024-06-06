@@ -10,7 +10,7 @@ def register_user(user_type):
     city = city_entry.get()
     state = state_entry.get()
 
-    
+    # Insert data into MySQL database
     try:
         connection = mysql.connector.connect(host='localhost',
                                              database='Product_Management',
@@ -18,7 +18,7 @@ def register_user(user_type):
                                              password='')
         cursor = connection.cursor()
         if user_type == 'ProductManager':
-            table = 'ProductManagers'
+            table = 'Product_Managers'
         else:
             table = 'Customers'
         sql = f"INSERT INTO {table} (name, contact, email, gender, city, state) VALUES (%s, %s, %s, %s, %s, %s)"

@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ppk_0vgz$v%kubt=o#0!z8wwa8=ydd#pw4%e354h&famim2i+r'
+SECRET_KEY = 'django-insecure-!w7jgj_z$a5%^kgk&!f6=ho3ydlo#&the90&*7y*yg%(3u7t92'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -73,7 +73,7 @@ WSGI_APPLICATION = 'product_management.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
+DATABASES ={
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "product_management",
