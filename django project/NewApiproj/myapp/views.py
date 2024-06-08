@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 
+
 # Create your views here.
 
 @api_view(['GET'])
@@ -24,30 +25,47 @@ def getstid(request,id):
     serial=studserializer(stid)
     return Response(data=serial.data,status=status.HTTP_200_OK)  
 
-@api_view(['DELETE','GET'])
+
+@api_view(['DELETE'])
 def deletestid(request,id):
-    
     try:
         stid=studinfo.objects.get(id=id)
     except studinfo.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_404_NOT_FOUND)  
+
+    studinfo.delete(stid)
+    return Response(status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['DELETE','GET'])
+def deletestid(request,id):
+    stid=''
     if request.method=='GET':
-      serial=studserializer(stid)
+      try:
+        bookid=studinfo.objects.get(id=id)
+      except studinfo.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)  
+      serial=studserializer(bookid)
       return Response(data=serial.data,status=status.HTTP_200_OK)
     if request.method=='DELETE':
-       studinfo.delete(stid)
+       studinfo.delete(bookid)
        return Response(status=status.HTTP_202_ACCEPTED)
+   
     
 
 @api_view(['POST'])
 def savestdata(request):
-    if request.method=='post':
-        serial=studserializer(request.data)
-        if serial.is_valid():
-            serial.save()
-            return Response(status=status.HTTP_201_CREATED)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)    
+    if request.method=='POST':
+       serial=studserializer(data=request.data)
+       if serial.is_valid():
+          serial.save()
+          return Response(status=status.HTTP_201_CREATED)
+       else:
+          return Response(status=status.HTTP_400_BAD_REQUEST)
+    else:
+       return Response (status=status.HTTP_400_BAD_REQUEST)  
+
+        
         
 @api_view(['PUT'])
 def updatestdata(request,id):
@@ -57,12 +75,14 @@ def updatestdata(request,id):
         return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method=='GET':
       serial=studserializer(stid)
-      return Response(data=serial.data,status=status.HTTP_200_OK)
-    if request.method=='put':
-        serial=studserializer(request.data)
-        if serial.is_valid():
-            serial.save()
-            return Response(status=status.HTTP_201_CREATED)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)    
+      return Response(data=serial.data,status=status.HTTP_200_OK)   
+    if request.method=='PUT':
+      serial=studserializer(request.data)
+      if serial.is_valid():
+         serial.save()
+         return Response(status=status.HTTP_201_CREATED)
+      else:
+          return Response(status=status.HTTP_400_BAD_REQUEST)
+    else:
+       return Response (status=status.HTTP_400_BAD_REQUEST) 
        

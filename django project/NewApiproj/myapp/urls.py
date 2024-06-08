@@ -6,6 +6,6 @@ urlpatterns = [
     path('',views.getall),
     path('getstid/<int:id>',views.getstid),
     path('deletestid/<int:id>',views.deletestid),
-    path('savestdata/<int:id>',views.savestdata),
-    path('updatestdata/<int:id>',views.updatestdata),
+    path('savestdata/',views.savestdata),
+    path('updatestdata/',views.updatestdata),
 ]
